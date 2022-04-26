@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { getPetDetails } from '../../api/petfinder';
 import Hero from '../../components/hero';
+import { Redirect, Route } from 'react-router-dom'
+import PetDetailsNotFound from '../petDetailsNotFound';
 
 const PetDetailsPage = () => {
   const [data, setData] = useState();
@@ -30,6 +32,11 @@ const PetDetailsPage = () => {
         <h3>Loading...</h3>
       ) : error ? (
         <div>
+          <Route>
+            if (error) {
+              <Redirect to='/pet-details-not-found'/>
+            }
+          </Route>
           {/* Redirect to /pet-details-not-found if there was an error! */}
         </div>
       ) : (
